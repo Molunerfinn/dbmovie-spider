@@ -1,5 +1,5 @@
 var cheerio = require('cheerio');  
-var superagent = require('superagent-charset');  
+var request = require('sync-request');  
 var fs = require('fs');  
 var http = require('http');
 
@@ -8,19 +8,17 @@ var url = 'http://movie.douban.com/subject/25724855/'
 
 var html = '';
 var IMDBLink = '';
-superagent.get(url).end(function(err,res){
-  if (err) { return console.log('error')};
-    // console.log(res.text);
-    html = res.text;
-    handleHtml(html);
-    superagent.get(IMDBLink).end(function(err,res){
-      Link = res.text;
-      handleIMDB(Link);
-    });
-});
 
+html = request('GET', url).getBody().toString();
 
-function handleHtml(html){
+handleDB(html);
+
+Link = request('GET', IMDBLink).getBody().toString();
+
+handleIMDB(Link);
+
+// 获取豆瓣电影里的大部分所需内容
+function handleDB(html){
   var $ = cheerio.load(html);
   var info = $('#info');
   // 获取电影名
@@ -58,10 +56,16 @@ function handleHtml(html){
     // IMDBLink
   IMDBLink = $('#info').children().last().prev().attr('href');
 
-  console.log(movieName + '\r\n' + directories + '\r\n' + starsName + '\r\n' + runTime + '\r\n' + kinds + '\r\n'+ DB);
+  var data = movieName + '\r\n' + directories + '\r\n' + starsName + '\r\n' + runTime + '\r\n' + kinds + '\r\n'+ DB +'\r\n';
+
+  fs.appendFile('dbmovie.txt', data, 'utf-8', function(err){
+    if (err) throw err;
+    else console.log('大体信息写入成功'+'\r\n' + data)
+  });
 
 }
 
+// 获取IMDB相关评分和评分人数
 function handleIMDB(Link){
   var $ = cheerio.load(Link);
   var IMDBScore = $('.ratingValue span').filter(function(i,el){
@@ -70,8 +74,11 @@ function handleIMDB(Link){
   var IMDBVotes = $('.small').filter(function(i,el){
     return $(this).attr('itemprop') === 'ratingCount';
   }).text();
-  var IMDB = '- IMDB评分：' + IMDBScore + '/10' + '(' + 'from' + IMDBVotes + 'users' + ')';
-  console.log(IMDB);
+  var IMDB = '- IMDB评分：' + IMDBScore + '/10' + '(' + 'from' + IMDBVotes + 'users' + ')' + '\r\n';
+  fs.appendFile('dbmovie.txt', IMDB, 'utf-8', function(err){
+    if (err) throw err;
+    else console.log('IMDB信息写入成功' + '\r\n' + IMDB)
+  });
 }
 
 

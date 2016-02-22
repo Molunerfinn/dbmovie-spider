@@ -13,6 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^0.20.0",
-    "superagent": "^1.7.2"
+    "sync-request": "^3.0.0"
   }
 }
