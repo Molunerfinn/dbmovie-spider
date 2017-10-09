@@ -81,6 +81,3 @@ function handleIMDB(Link){
   });
 }
 
-
-
-
