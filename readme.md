@@ -1,9 +1,31 @@
 ## 这是一个豆瓣电影的小爬虫
 
-这是个基于nodejs，cheerio和superagent写的一个小小的爬虫。  
+这是个基于nodejs，cheerio和axios写的一个小小的爬虫。  
 它主要是我写影评的一个副产品，为了更方便地获取所看电影的一些信息，例如导演，主演，评分等等。包括获取相应电影的IMDB评分和评分人数。
 
 ## 更新日志
+
+### 2017.10.09
+
+v2.0 支持命令行直接执行。
+
+```bash
+Usage: node index.js [options] [command]
+
+
+Options:
+
+  -V, --version       output the version number
+  -w, --write [file]  write info to file
+  -c, --console       console the result
+  -h, --help          output usage information
+
+
+Commands:
+
+  <url>           Set the db-movie url
+  help [cmd]  display help for [cmd]
+```
 
 ### 2016.02.22
 
@@ -51,4 +73,21 @@ v1.0 这个爬虫现在能够通过控制台输出如下信息：
 
 ## 使用方法
 
-在index.js里的url替换成你所看的电影的url，然后在控制台执行`node index.js`即可输出。
+```bash
+Usage: node index.js [options] [command]
+
+
+Options:
+
+  -V, --version       output the version number
+  -w, --write [file]  write info to file
+  -c, --console       console the result
+  -h, --help          output usage information
+
+
+Commands:
+
+  <url>           Set the db-movie url
+  help [cmd]  display help for [cmd]
+```
+直接输入`node index.js url` 然后将豆瓣电影的url放在后面就可以了。
