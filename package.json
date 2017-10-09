@@ -1,10 +1,14 @@
 {
   "name": "dbmovie-spider",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A spider that plays happily on the movie.douban.com",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "bin": {
+    "dbmovie-spider": "./index.js"
   },
   "keywords": [
     "spider"
@@ -22,6 +26,7 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "progress": "^2.0.0",
     "sync-request": "^3.0.0"
   }
 }
