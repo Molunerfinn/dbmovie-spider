@@ -108,7 +108,7 @@ function handleDB (html) {
   var DBVotes = $('a.rating_people>span').text().replace(/\B(?=(\d{3})+$)/g, ',')
   var DB = '- 豆  瓣评分：' + DBScore + '/10' + '(' + 'from' + DBVotes + 'users' + ')'
   // IMDBLink
-  IMDBLink = $('#info').find('[rel="nofollow"]').attr('href')
+  IMDBLink = $('#info .pl:contains("IMDb")').next('[rel="nofollow"]').attr('href')
 
   var data = movieName + '\r\n' + directories + '\r\n' + starsName + '\r\n' + runTime + '\r\n' + kinds + '\r\n' + DB + '\r\n'
 
